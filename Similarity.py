@@ -70,6 +70,8 @@ print(df)
 
 #print(WuAndPalmer(word1, word2))
 
-pears = df['Human (mean)'].corr(df['Wu_Palmer similarity'], method='pearson')
+pearson = df['Human (mean)'].corr(df['Wu_Palmer similarity'], method='pearson')
+spearman = df['Human (mean)'].corr(df['Wu_Palmer similarity'], method='spearman')
 
-print(pears)
+print(pearson)
+print(spearman)
