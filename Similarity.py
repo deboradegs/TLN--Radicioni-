@@ -6,8 +6,6 @@ import math
 depthMax = 20
 
 df = pd.read_csv("WordSim353/WordSim353.csv")
-word1 = df.iloc[0][0]
-word2 = df.iloc[0][1]
 
 # def get_hyperonyms2(synset):
 #     hyperonyms=[]
@@ -73,13 +71,10 @@ def lcs(syns1, syns2):
     return intersection
     
 
-def Similarity(w1, w2):
+#Wu & Palmer
+def wu_palmer_similarity(w1, w2):
     #res = w1.lowest_common_hypernyms(w2)
     res = lcs(w1, w2)
-    #print()
-    #print()
-    #print(res2)
-    #print(res)
     depth  = 0
     if len(res) != 0:
         result = res[0]
@@ -96,25 +91,19 @@ def Similarity(w1, w2):
     return similarity
 
 
-def WuAndPalmer(w1, w2):
-    syn1 = wordnet.synsets(w1)
-    syn2 = wordnet.synsets(w2)
-    max = 0
-    sim = 0
-    for syn in syn1:
-        for sy in syn2:
-            sim = Similarity(syn, sy)
-            if sim>max:
-                max = sim
-    return max
+# def WuAndPalmer(w1, w2):
+#     syn1 = wordnet.synsets(w1)
+#     syn2 = wordnet.synsets(w2)
+#     max = 0
+#     sim = 0
+#     for syn in syn1:
+#         for sy in syn2:
+#             sim = Similarity(syn, sy)
+#             if sim>max:
+#                 max = sim
+#     return max
     
 
-#Leeckock -> deb
-
-
-#Shortest Path = 2*depthMax - length(s1,s1)
-#length(s1,s2) = length(s1,lcs) + length(s2, lcs)
-#lcs tra s1 e s2
 
 def get_length_lcs(s, lcs_s1_s2):
     length =0
@@ -127,52 +116,96 @@ def get_length_lcs(s, lcs_s1_s2):
 def get_length(s1, s2):
     lcs_s1_s2 = lcs(s1, s2)
     if len(lcs_s1_s2)==0:
-        #print("bohhhh")
         return 2*depthMax
     else:
-        #print(lcs_s1_s2[0])
         return get_length_lcs(s1, lcs_s1_s2) + get_length_lcs(s2, lcs_s1_s2) 
 
-def shorterst_path_similarity(s1,s2):
+#Shortest Path 
+def shortest_path_similarity(s1,s2):
     length=get_length(s1, s2)
     simpath=2*depthMax-length
     return simpath
 
-def shorterst_path(w1,w2):
+
+#Leeckock & Chodorow
+def leakcock_chodorow_similarity(w1, w2):
+    len = get_length(w1, w2)
+    len_wo_errors = len+1
+    return -math.log(len_wo_errors/((2*depthMax)+1))
+
+
+# def shorterst_path(w1,w2):
+#     syn1 = wordnet.synsets(w1)
+#     syn2 = wordnet.synsets(w2)
+#     max = 0
+#     sim = 0
+#     for syn in syn1:
+#         for sy in syn2:
+#             sim = shorterst_path_similarity(syn, sy)
+#             if sim>max:
+#                 max = sim
+#     return max
+
+
+def terms_similarity(method, w1, w2):
     syn1 = wordnet.synsets(w1)
     syn2 = wordnet.synsets(w2)
     max = 0
     sim = 0
     for syn in syn1:
         for sy in syn2:
-            sim = shorterst_path_similarity(syn, sy)
+            sim = method(syn, sy)
             if sim>max:
                 max = sim
     return max
 
-
-
 #print(WuAndPalmer(word1, word2))
 #print(shorterst_path(word1, word2))
 
-wu_palmer = []
-short_path = []
-for i in range(len(df)):
-    wu_palmer.append(WuAndPalmer(df.iloc[i][0],df.iloc[i][1]))
-    short_path.append(shorterst_path(df.iloc[i][0],df.iloc[i][1]))
+def correlation_calculus(method):
+    lista = []
+    pearson = 0
+    spearman = 0
+    for i in range(len(df)):
+        lista.append(terms_similarity(method,df.iloc[i][0], df.iloc[i][1]))
 
-df['Wu_Palmer'] = wu_palmer
-df['shortPath'] = short_path
+    if method == wu_palmer_similarity:
+        df['wu_palmer_similarity'] = lista
+        pearson = df['Human (mean)'].corr(df['wu_palmer_similarity'], method='pearson')
+        spearman = df['Human (mean)'].corr(df['wu_palmer_similarity'], method='spearman')
+    if method == shortest_path_similarity:
+        df['shortest_path_similarity'] = lista
+        pearson = df['Human (mean)'].corr(df['shortest_path_similarity'], method='pearson')
+        spearman = df['Human (mean)'].corr(df['shortest_path_similarity'], method='spearman')
+    if method == leakcock_chodorow_similarity:
+        df['leakcock_chodorow_similarity'] = lista
+        pearson = df['Human (mean)'].corr(df['leakcock_chodorow_similarity'], method='pearson')
+        spearman = df['Human (mean)'].corr(df['leakcock_chodorow_similarity'], method='spearman')
 
-print(df)
+    #series = pd.Series(list)
+    #pearson = df['Human (mean)'].corr(series, method='pearson')
+    #spearman = df['Human (mean)'].corr(series, method='spearman')
+    return df, pearson, spearman
+    
+print("Wu & Palmer similarity results")
+print(correlation_calculus(wu_palmer_similarity)[0])
+print("Its Pearson correlation coefficient")
+print(correlation_calculus(wu_palmer_similarity)[1])
+print("Its Spearman's rank correlation coefficient")
+print(correlation_calculus(wu_palmer_similarity)[2])
 
+print()
+print("Shortest Path similarity results")
+print(correlation_calculus(shortest_path_similarity))
+print("Its Pearson correlation coefficient")
+print(correlation_calculus(shortest_path_similarity)[1])
+print("Its Spearman's rank correlation coefficient")
+print(correlation_calculus(shortest_path_similarity)[2])
 
-#Pearson and Sperman
-
-pearson = df['Human (mean)'].corr(df['Wu_Palmer'], method='pearson')
-spearman = df['Human (mean)'].corr(df['Wu_Palmer'], method='spearman')
-
-
-
-#print(pearson)
-#print(spearman)
+print()
+print("Leakcock and Chodorow similarity results")
+print(correlation_calculus(leakcock_chodorow_similarity))
+print("Its Pearson correlation coefficient")
+print(correlation_calculus(leakcock_chodorow_similarity)[1])
+print("Its Spearman's rank correlation coefficient")
+print(correlation_calculus(leakcock_chodorow_similarity)[2])
