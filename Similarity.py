@@ -186,7 +186,8 @@ def correlation_calculus(method):
     #pearson = df['Human (mean)'].corr(series, method='pearson')
     #spearman = df['Human (mean)'].corr(series, method='spearman')
     return df, pearson, spearman
-    
+
+print()    
 print("Wu & Palmer similarity results")
 print(correlation_calculus(wu_palmer_similarity)[0])
 print("Its Pearson correlation coefficient")
