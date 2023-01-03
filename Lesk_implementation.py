@@ -43,8 +43,7 @@ def get_overlap(signature, context):
 def lesk_algorithm(word, sentence):
     best_sense = wn.synsets(word)[0]
     max_overlap = 0
-    context = get_context(sentence) #tutte le parole di sentence meno word
-    #print(context)
+    context = get_context(sentence) #tutte le parole di sentence
     for syn in wn.synsets(word):
         signature = get_signature(syn) #Esempi più glossario (descrizioni)
         #print(signature)
@@ -52,12 +51,7 @@ def lesk_algorithm(word, sentence):
         if overlap > max_overlap:
             max_overlap = overlap
             best_sense = syn
-    #print(best_sense)
-    #print(best_sense.lemmas())
     return best_sense
-
-
-lesk_algorithm('cat', 'the cat is on the table')
 
 
 ##########################
@@ -69,10 +63,6 @@ tagged_semcor_sents = semcor.tagged_sents(tag='both')
 semcor_sents_length = len(semcor_sents)
 print('Semcore sentences successfully loaded')
 
-#print(semcor_sents)
-#print(tagged_semcor_sents)
-#print(semcor_sents_length)
-
 def clear(lista):
     cleaned_list = []
     for i in range(0, len(lista)):
@@ -80,27 +70,42 @@ def clear(lista):
             cleaned_list.append(lemmatizer.lemmatize(str(lista[i]).lower()))
     return cleaned_list
 
+def funzione():
+    random_list = random.sample(range(semcor_sents_length), 50)
+    fifty_sents = []
+    sen = str
+    punteggio = 0
+    for i in random_list:
+        nouns_sents = []
+        sen = ' '.join(clear(semcor_sents[i]))
+        for tree in tagged_semcor_sents[i]:
+            if 'Lemma' in str(tree.label()) and ('NN' == str(tree.pos()[0][1]) or  str(tree.pos()[0][1]) == 'NNS') and len(wn.synsets(tree.pos()[0][0]))>0 :
+                nouns_sents.append(tree)
+        if len(nouns_sents)>0:
+            noun=random.choice(nouns_sents)
+            fifty_sents.append(clear(semcor_sents[i]))
+            syns_dis_lesk = lesk_algorithm(noun.pos()[0][0], sen).lemmas()
+            count = 0
+            for syn in syns_dis_lesk:
+                if(str(noun.label()) == str(syn)):
+                    punteggio += 1
+                    count+=1
 
-random_list = random.sample(range(semcor_sents_length), 50)
-fifty_sents = []
-for i in random_list:
-    nouns_sents = []
-    fifty_sents.append(clear(semcor_sents[i]))
-    for tree in tagged_semcor_sents[0]:
-        if 'Lemma' in str(tree.label()) and tree[0].label() == 'NN':
-            nouns_sents.append(tree)
-        print()
-        print(tree)
-        print(tree.label())
-        print(tree[0])
-        #print(tree[0].label()) ???????????????
-        print(type(tree))
-      
-    print(nouns_sents)
+    return punteggio/len(fifty_sents)*100
 
 
-#print(fifty_sents)
+risultati = 0 
+for i in range(0,10):
+    print("------------------------------------")
+    print("Accuratezza esecuzione numero" + " " + str(i+1))
+    res = funzione()
+    risultati += res
+    print(str(res)+"%")
 
-
-
+print("------------------------------------")
+print()
+print()
+print("Accuratezza media dell'algoritmo su 10 esecuzioni del programma: ")
+print()
+print(str(risultati/10)+"%")
 
