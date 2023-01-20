@@ -4,14 +4,19 @@ from nltk.corpus import semcor, stopwords
 from nltk.corpus.reader import Lemma
 from nltk.stem import WordNetLemmatizer
 from nltk import pos_tag, word_tokenize
+from rouge_score import rouge_scorer
 import string
 import numpy as np
 import py_babelnet as bn
 import random
 import re
+import os
+
+from rouge_metric import PerlRouge
 
 dict_nasari = dict()
 df_nasari = pd.read_csv('Esercizio2_Summarization/nasari/dd-small-nasari-15.txt', sep=';', header=None)
+
 
 for rows in df_nasari.itertuples():
     
@@ -34,23 +39,22 @@ def stem_lem(text):
             words.append(lemma)
     return words
 
-
 def read_and_split(doc):
     paragraphs = list()
     document = open(doc, 'r')
     for line in document:
-        if len(line) > 1:
-            paragraphs.extend(line.split('\n'))
+        if len(line) > 1 and not line.startswith('#'):
+            paragraphs.append(line.replace('\n', ""))
     document.close()
     return paragraphs
 
-
-splitted_warhol = read_and_split('Esercizio2_Summarization/utils/Andy-Warhol.txt')
+#splitted_warhol = read_and_split('Esercizio2_Summarization/texts/Life-indoors.txt')
+# paragraph_len = len(splitted_warhol)
 
 
 def extract_context(doc):
-    kw = stem_lem(doc[2])
-    kw.extend(stem_lem (doc[4]))
+    kw = stem_lem(doc[1])
+    kw.extend(stem_lem (doc[2]))
     kw.extend(stem_lem(doc[len(doc)-1]))
     kw= list(dict.fromkeys(kw))
     nasaris = list()
@@ -64,7 +68,7 @@ def extract_context(doc):
         
     return context        
     
-context = extract_context(splitted_warhol)
+#context = extract_context(splitted_warhol)
 #print("contesto")
 #print(context)
 
@@ -116,7 +120,53 @@ def rerank_paragraphs(context, doc):
     return sorted(paragraph_wo.items(), key=lambda x:x[1], reverse= True)
     #return paragraph_wo
 
-par = rerank_paragraphs(context, splitted_warhol)
+#par = rerank_paragraphs(context, splitted_warhol)
 
-#def summarize(ranked_paragraphs, percentage):
-    
+def summarize(ranked_paragraphs, percentage, splitted_doc):
+    summarization = ' '
+    number_of_paragraphs = round(percentage/100*paragraph_len)
+    #print(number_of_paragraphs)
+    final_paragraphs = ranked_paragraphs[:number_of_paragraphs]
+    final_paragraphs = sorted(final_paragraphs)
+    #print(final_paragraphs)
+    for tuple in final_paragraphs:
+        summarization = str(summarization) + " " + splitted_doc[tuple[0]]
+    return summarization
+    #print(summarization)
+
+#summarize(par, random_percentage, splitted_warhol)
+#print(par)
+
+documents = os.listdir('Esercizio2_Summarization/texts')
+
+scorer = rouge_scorer.RougeScorer(['rouge1', 'rougeL'], use_stemmer=True)
+
+for doc in documents:
+    splitted_doc = read_and_split('Esercizio2_Summarization/texts/'+doc)
+    paragraph_len = len(splitted_doc)
+    context = extract_context(splitted_doc)
+    par = rerank_paragraphs(context, splitted_doc)
+    summary90 = summarize(par, 90, splitted_doc)
+    summary80 = summarize(par, 80, splitted_doc)
+    summary70 = summarize(par, 70, splitted_doc)
+    outF = open('Esercizio2_Summarization/summaries/90_'+ doc, "w")
+    outF.write(str(summary90))
+    outF = open('Esercizio2_Summarization/summaries/80_'+ doc, "w")
+    outF.write(str(summary80))
+    outF = open('Esercizio2_Summarization/summaries/70_'+ doc, "w")
+    outF.write(str(summary70))
+
+scores = PerlRouge().evaluate_from_files('Esercizio2_Summarization/summaries', 'Esercizio2_Summarization/automatic_summaries')
+
+rouge_1 = scores['rouge-1']
+rouge_2 = scores['rouge-2']
+
+print('Rouge-1 scores')
+print('Recall score: {}'.format(rouge_1['r']))
+print('Precision score: {}'.format(rouge_1['p']))
+print()
+print('Rouge-2 scores')
+print('Recall score: {}'.format(rouge_2['r']))
+print('Precision score: {}'.format(rouge_2['p']))
+
+
