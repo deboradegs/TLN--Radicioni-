@@ -11,7 +11,6 @@ import py_babelnet as bn
 import random
 import re
 import os
-
 from rouge_metric import PerlRouge
 
 dict_nasari = dict()
@@ -19,13 +18,10 @@ df_nasari = pd.read_csv('Esercizio2_Summarization/nasari/dd-small-nasari-15.txt'
 
 
 for rows in df_nasari.itertuples():
-    
     if rows[2] in dict_nasari.keys():  
         dict_nasari[str(rows[2]).lower()].extend(list(rows[3:16]))
-        
     else:
         dict_nasari[str(rows[2]).lower()]= list(rows[3:16])
-#print(dict_nasari)
     
 lemmatizer = WordNetLemmatizer()
 stop_words = stopwords.words('english')
@@ -39,6 +35,7 @@ def stem_lem(text):
             words.append(lemma)
     return words
 
+
 def read_and_split(doc):
     paragraphs = list()
     document = open(doc, 'r')
@@ -47,9 +44,6 @@ def read_and_split(doc):
             paragraphs.append(line.replace('\n', ""))
     document.close()
     return paragraphs
-
-#splitted_warhol = read_and_split('Esercizio2_Summarization/texts/Life-indoors.txt')
-# paragraph_len = len(splitted_warhol)
 
 
 def extract_context(doc):
@@ -68,9 +62,6 @@ def extract_context(doc):
         
     return context        
     
-#context = extract_context(splitted_warhol)
-#print("contesto")
-#print(context)
 
 def weighted_overlap(v1,v2):
     v1_cleaned = list()
@@ -93,6 +84,7 @@ def weighted_overlap(v1,v2):
             counter+=1
         wo = numerator/denominator
     return wo
+
 
 def rerank_paragraphs(context, doc):
     paragraph_wo = dict()
@@ -118,27 +110,18 @@ def rerank_paragraphs(context, doc):
         if len(list_words) > 0:
             paragraph_wo[doc.index(paragraph)] = sum_overlap/len(list_words)
     return sorted(paragraph_wo.items(), key=lambda x:x[1], reverse= True)
-    #return paragraph_wo
 
-#par = rerank_paragraphs(context, splitted_warhol)
 
 def summarize(ranked_paragraphs, percentage, splitted_doc):
     summarization = ' '
     number_of_paragraphs = round(percentage/100*paragraph_len)
-    #print(number_of_paragraphs)
     final_paragraphs = ranked_paragraphs[:number_of_paragraphs]
     final_paragraphs = sorted(final_paragraphs)
-    #print(final_paragraphs)
     for tuple in final_paragraphs:
         summarization = str(summarization) + " " + splitted_doc[tuple[0]]
     return summarization
-    #print(summarization)
-
-#summarize(par, random_percentage, splitted_warhol)
-#print(par)
 
 documents = os.listdir('Esercizio2_Summarization/texts')
-
 scorer = rouge_scorer.RougeScorer(['rouge1', 'rougeL'], use_stemmer=True)
 
 for doc in documents:
@@ -168,5 +151,3 @@ print()
 print('Rouge-2 scores')
 print('Recall score: {}'.format(rouge_2['r']))
 print('Precision score: {}'.format(rouge_2['p']))
-
-
