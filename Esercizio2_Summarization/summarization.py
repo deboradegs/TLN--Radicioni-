@@ -13,6 +13,7 @@ import re
 import os
 from rouge_metric import PerlRouge
 
+
 dict_nasari = dict()
 df_nasari = pd.read_csv('Esercizio2_Summarization/nasari/dd-small-nasari-15.txt', sep=';', header=None)
 
@@ -87,18 +88,16 @@ def weighted_overlap(v1,v2):
 
 
 def rerank_paragraphs(context, doc):
-    paragraph_wo = dict()
+    ranked_paragraphs = list()
     for paragraph in doc:
-        
+        paragraph_wo = dict.fromkeys(['index', 'paragraph', 'rank_score'])        
         list_words = stem_lem(paragraph)
         sum_overlap = 0
         for word in list_words:
             max = 0
             nasari_word = list()
             if word in dict_nasari.keys():
-                nasari_word = dict_nasari[word]
-            #else:
-            #    break    
+                nasari_word = dict_nasari[word] 
             for c in context:
                 nasari_c = list()
                 if c in dict_nasari.keys():
@@ -108,17 +107,56 @@ def rerank_paragraphs(context, doc):
                         max = wo
             sum_overlap+=max        
         if len(list_words) > 0:
-            paragraph_wo[doc.index(paragraph)] = sum_overlap/len(list_words)
-    return sorted(paragraph_wo.items(), key=lambda x:x[1], reverse= True)
+            paragraph_wo['index'] = doc.index(paragraph)
+            paragraph_wo['paragraph'] = paragraph
+            paragraph_wo['rank_score'] = sum_overlap/len(list_words)
+            ranked_paragraphs.append(paragraph_wo)
+            #paragraph_wo[doc.index(paragraph)] = sum_overlap/len(list_words)
+    #return sorted(paragraph_wo.items(), key=lambda x:x[1], reverse= True)
+    return sorted(ranked_paragraphs, key=lambda x:x['rank_score'], reverse= True)
 
 
 def summarize(ranked_paragraphs, percentage, splitted_doc):
     summarization = ' '
-    number_of_paragraphs = round(percentage/100*paragraph_len)
-    final_paragraphs = ranked_paragraphs[:number_of_paragraphs]
-    final_paragraphs = sorted(final_paragraphs)
-    for tuple in final_paragraphs:
-        summarization = str(summarization) + " " + splitted_doc[tuple[0]]
+    #print(ranked_paragraphs)
+    #number_of_paragraphs = round(percentage/100*paragraph_len)
+    #final_paragraphs = ranked_paragraphs[:number_of_paragraphs]
+    #final_paragraphs = sorted(final_paragraphs)
+    #print(final_paragraphs)
+    #for tuple in final_paragraphs:
+    #    summarization = str(summarization) + " " + splitted_doc[tuple[0]]
+
+    doc_num_words = len(str(splitted_doc[1:]).split(' '))
+    doc_sum_num_words = (doc_num_words * percentage)/100
+    num_write_words = 0
+    save_num_write_words = 0
+
+    index_new_paragraphs_list = list()
+
+    index = 0
+    while num_write_words < doc_sum_num_words:
+        index_new_paragraphs_list.append(ranked_paragraphs[index]['index'])
+        num_write_words += len(str(ranked_paragraphs[index]['paragraph']).split(' '))
+        save_num_write_words = num_write_words - len(str(ranked_paragraphs[index]['paragraph']).split(' '))
+        index+=1
+
+    if (num_write_words - doc_sum_num_words) > (doc_sum_num_words - save_num_write_words):
+        index_new_paragraphs_list.pop()
+
+    ranked_paragraphs = sorted(ranked_paragraphs, key=lambda x:x['index'], reverse= False)
+
+    for i in range(0, len(ranked_paragraphs)):
+        if ranked_paragraphs[i]['index'] in index_new_paragraphs_list:
+            summarization = str(summarization) + " " + ranked_paragraphs[i]['paragraph']
+
+    print('numero parole testo originale')
+    print(doc_num_words)
+    print('numero parole che dovrebbe avere la summarization')
+    print(doc_sum_num_words)
+    print('numero parole che ha il testo riassunto')
+    print(len(str(summarization).split(' ')))
+    print()    
+
     return summarization
 
 documents = os.listdir('Esercizio2_Summarization/texts')
@@ -129,15 +167,20 @@ for doc in documents:
     paragraph_len = len(splitted_doc)
     context = extract_context(splitted_doc)
     par = rerank_paragraphs(context, splitted_doc)
+    print(doc)
     summary90 = summarize(par, 90, splitted_doc)
     summary80 = summarize(par, 80, splitted_doc)
     summary70 = summarize(par, 70, splitted_doc)
     outF = open('Esercizio2_Summarization/summaries/90_'+ doc, "w")
     outF.write(str(summary90))
+    outF.close()
     outF = open('Esercizio2_Summarization/summaries/80_'+ doc, "w")
     outF.write(str(summary80))
+    outF.close()
     outF = open('Esercizio2_Summarization/summaries/70_'+ doc, "w")
     outF.write(str(summary70))
+    outF.close()
+
 
 scores = PerlRouge().evaluate_from_files('Esercizio2_Summarization/summaries', 'Esercizio2_Summarization/automatic_summaries')
 
