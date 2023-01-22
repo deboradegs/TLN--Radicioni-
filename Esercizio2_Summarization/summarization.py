@@ -181,16 +181,73 @@ for doc in documents:
     outF.write(str(summary70))
     outF.close()
 
+##PRECISION and RECALL
 
-scores = PerlRouge().evaluate_from_files('Esercizio2_Summarization/summaries', 'Esercizio2_Summarization/automatic_summaries')
+    text_file = open('Esercizio2_Summarization/summaries/90_'+doc, "r")
+    nostro_sum90 = text_file.read()
+    nostro_sum90 = stem_lem(nostro_sum90)
+    text_file.close()
+    text_file = open('Esercizio2_Summarization/summaries/80_'+doc, "r")
+    nostro_sum80 = text_file.read()
+    nostro_sum80 = stem_lem(nostro_sum80)
+    text_file.close()
+    text_file = open('Esercizio2_Summarization/summaries/80_'+doc, "r")
+    nostro_sum70 = text_file.read()
+    nostro_sum70 = stem_lem(nostro_sum70)
+    text_file.close()
 
-rouge_1 = scores['rouge-1']
-rouge_2 = scores['rouge-2']
+    text_file = open('Esercizio2_Summarization/automatic_summaries/90_'+doc, "r")
+    gold_sum90 = text_file.read()
+    gold_sum90 = stem_lem(gold_sum90)
+    text_file.close()
+    text_file = open('Esercizio2_Summarization/automatic_summaries/80_'+doc, "r")
+    gold_sum80 = text_file.read()
+    gold_sum80= stem_lem(gold_sum80)
+    text_file.close()
+    text_file = open('Esercizio2_Summarization/automatic_summaries/70_'+doc, "r")
+    gold_sum70 = text_file.read()
+    gold_sum70 = stem_lem(gold_sum70)
+    text_file.close()
 
-print('Rouge-1 scores')
-print('Recall score: {}'.format(rouge_1['r']))
-print('Precision score: {}'.format(rouge_1['p']))
-print()
-print('Rouge-2 scores')
-print('Recall score: {}'.format(rouge_2['r']))
-print('Precision score: {}'.format(rouge_2['p']))
+    blue_precision90 = len(set(nostro_sum90) & set(gold_sum90)) / len(set(nostro_sum90))
+    rouge_recall90 = len(set(nostro_sum90) & set(gold_sum90)) / len(set(gold_sum90))
+
+    blue_precision80 = len(set(nostro_sum80) & set(gold_sum80)) / len(set(nostro_sum80))
+    rouge_recall80 = len(set(nostro_sum80) & set(gold_sum80)) / len(set(gold_sum80))
+
+    blue_precision70 = len(set(nostro_sum70) & set(gold_sum70)) / len(set(nostro_sum70))
+    rouge_recall70 = len(set(nostro_sum70) & set(gold_sum70)) / len(set(gold_sum70))
+
+    print('blu precision del 90')
+    print(blue_precision90)
+    print('rouge recall del 90')
+    print(rouge_recall90)
+    print()
+    print('blu precision del 80')
+    print(blue_precision80)
+    print('rouge recall del 80')
+    print(rouge_recall80)
+    print()
+    print('blu precision del 70')
+    print(blue_precision70)
+    print('rouge recall del 70')
+    print(rouge_recall70)
+    print()
+    print()
+    print()
+
+
+# scores = PerlRouge().evaluate_from_files('Esercizio2_Summarization/summaries', 'Esercizio2_Summarization/automatic_summaries')
+
+# rouge_1 = scores['rouge-1']
+# rouge_2 = scores['rouge-2']
+
+# print('Rouge-1 scores')
+# print('Recall score: {}'.format(rouge_1['r']))
+# print('Precision score: {}'.format(rouge_1['p']))
+# print()
+# print('Rouge-2 scores')
+# print('Recall score: {}'.format(rouge_2['r']))
+# print('Precision score: {}'.format(rouge_2['p']))
+
+
