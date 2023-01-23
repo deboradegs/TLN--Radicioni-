@@ -1,0 +1,181 @@
+<ROUGE-EVAL version="1.5.5">
+<EVAL ID="1">
+    <MODEL-ROOT>Esercizio2_Summarization/automatic_summaries</MODEL-ROOT>
+    <PEER-ROOT>Esercizio2_Summarization/summaries</PEER-ROOT>
+    <INPUT-FORMAT TYPE="SPL">
+    </INPUT-FORMAT>
+    <PEERS>
+        <P ID="A">90_Ebola-virus-disease.txt</P>
+    </PEERS>
+    <MODELS>
+        <M ID="0">90_Ebola-virus-disease.txt</M>
+    </MODELS>
+</EVAL>
+<EVAL ID="2">
+    <MODEL-ROOT>Esercizio2_Summarization/automatic_summaries</MODEL-ROOT>
+    <PEER-ROOT>Esercizio2_Summarization/summaries</PEER-ROOT>
+    <INPUT-FORMAT TYPE="SPL">
+    </INPUT-FORMAT>
+    <PEERS>
+        <P ID="A">80_Trump-wall.txt</P>
+    </PEERS>
+    <MODELS>
+        <M ID="0">80_Trump-wall.txt</M>
+    </MODELS>
+</EVAL>
+<EVAL ID="3">
+    <MODEL-ROOT>Esercizio2_Summarization/automatic_summaries</MODEL-ROOT>
+    <PEER-ROOT>Esercizio2_Summarization/summaries</PEER-ROOT>
+    <INPUT-FORMAT TYPE="SPL">
+    </INPUT-FORMAT>
+    <PEERS>
+        <P ID="A">80_Andy-Warhol.txt</P>
+    </PEERS>
+    <MODELS>
+        <M ID="0">80_Andy-Warhol.txt</M>
+    </MODELS>
+</EVAL>
+<EVAL ID="4">
+    <MODEL-ROOT>Esercizio2_Summarization/automatic_summaries</MODEL-ROOT>
+    <PEER-ROOT>Esercizio2_Summarization/summaries</PEER-ROOT>
+    <INPUT-FORMAT TYPE="SPL">
+    </INPUT-FORMAT>
+    <PEERS>
+        <P ID="A">70_Andy-Warhol.txt</P>
+    </PEERS>
+    <MODELS>
+        <M ID="0">70_Andy-Warhol.txt</M>
+    </MODELS>
+</EVAL>
+<EVAL ID="5">
+    <MODEL-ROOT>Esercizio2_Summarization/automatic_summaries</MODEL-ROOT>
+    <PEER-ROOT>Esercizio2_Summarization/summaries</PEER-ROOT>
+    <INPUT-FORMAT TYPE="SPL">
+    </INPUT-FORMAT>
+    <PEERS>
+        <P ID="A">80_Napoleon-wiki.txt</P>
+    </PEERS>
+    <MODELS>
+        <M ID="0">80_Napoleon-wiki.txt</M>
+    </MODELS>
+</EVAL>
+<EVAL ID="6">
+    <MODEL-ROOT>Esercizio2_Summarization/automatic_summaries</MODEL-ROOT>
+    <PEER-ROOT>Esercizio2_Summarization/summaries</PEER-ROOT>
+    <INPUT-FORMAT TYPE="SPL">
+    </INPUT-FORMAT>
+    <PEERS>
+        <P ID="A">90_Trump-wall.txt</P>
+    </PEERS>
+    <MODELS>
+        <M ID="0">90_Trump-wall.txt</M>
+    </MODELS>
+</EVAL>
+<EVAL ID="7">
+    <MODEL-ROOT>Esercizio2_Summarization/automatic_summaries</MODEL-ROOT>
+    <PEER-ROOT>Esercizio2_Summarization/summaries</PEER-ROOT>
+    <INPUT-FORMAT TYPE="SPL">
+    </INPUT-FORMAT>
+    <PEERS>
+        <P ID="A">70_Ebola-virus-disease.txt</P>
+    </PEERS>
+    <MODELS>
+        <M ID="0">70_Ebola-virus-disease.txt</M>
+    </MODELS>
+</EVAL>
+<EVAL ID="8">
+    <MODEL-ROOT>Esercizio2_Summarization/automatic_summaries</MODEL-ROOT>
+    <PEER-ROOT>Esercizio2_Summarization/summaries</PEER-ROOT>
+    <INPUT-FORMAT TYPE="SPL">
+    </INPUT-FORMAT>
+    <PEERS>
+        <P ID="A">80_Ebola-virus-disease.txt</P>
+    </PEERS>
+    <MODELS>
+        <M ID="0">80_Ebola-virus-disease.txt</M>
+    </MODELS>
+</EVAL>
+<EVAL ID="9">
+    <MODEL-ROOT>Esercizio2_Summarization/automatic_summaries</MODEL-ROOT>
+    <PEER-ROOT>Esercizio2_Summarization/summaries</PEER-ROOT>
+    <INPUT-FORMAT TYPE="SPL">
+    </INPUT-FORMAT>
+    <PEERS>
+        <P ID="A">90_Andy-Warhol.txt</P>
+    </PEERS>
+    <MODELS>
+        <M ID="0">90_Andy-Warhol.txt</M>
+    </MODELS>
+</EVAL>
+<EVAL ID="10">
+    <MODEL-ROOT>Esercizio2_Summarization/automatic_summaries</MODEL-ROOT>
+    <PEER-ROOT>Esercizio2_Summarization/summaries</PEER-ROOT>
+    <INPUT-FORMAT TYPE="SPL">
+    </INPUT-FORMAT>
+    <PEERS>
+        <P ID="A">90_Life-indoors.txt</P>
+    </PEERS>
+    <MODELS>
+        <M ID="0">90_Life-indoors.txt</M>
+    </MODELS>
+</EVAL>
+<EVAL ID="11">
+    <MODEL-ROOT>Esercizio2_Summarization/automatic_summaries</MODEL-ROOT>
+    <PEER-ROOT>Esercizio2_Summarization/summaries</PEER-ROOT>
+    <INPUT-FORMAT TYPE="SPL">
+    </INPUT-FORMAT>
+    <PEERS>
+        <P ID="A">70_Trump-wall.txt</P>
+    </PEERS>
+    <MODELS>
+        <M ID="0">70_Trump-wall.txt</M>
+    </MODELS>
+</EVAL>
+<EVAL ID="12">
+    <MODEL-ROOT>Esercizio2_Summarization/automatic_summaries</MODEL-ROOT>
+    <PEER-ROOT>Esercizio2_Summarization/summaries</PEER-ROOT>
+    <INPUT-FORMAT TYPE="SPL">
+    </INPUT-FORMAT>
+    <PEERS>
+        <P ID="A">70_Life-indoors.txt</P>
+    </PEERS>
+    <MODELS>
+        <M ID="0">70_Life-indoors.txt</M>
+    </MODELS>
+</EVAL>
+<EVAL ID="13">
+    <MODEL-ROOT>Esercizio2_Summarization/automatic_summaries</MODEL-ROOT>
+    <PEER-ROOT>Esercizio2_Summarization/summaries</PEER-ROOT>
+    <INPUT-FORMAT TYPE="SPL">
+    </INPUT-FORMAT>
+    <PEERS>
+        <P ID="A">70_Napoleon-wiki.txt</P>
+    </PEERS>
+    <MODELS>
+        <M ID="0">70_Napoleon-wiki.txt</M>
+    </MODELS>
+</EVAL>
+<EVAL ID="14">
+    <MODEL-ROOT>Esercizio2_Summarization/automatic_summaries</MODEL-ROOT>
+    <PEER-ROOT>Esercizio2_Summarization/summaries</PEER-ROOT>
+    <INPUT-FORMAT TYPE="SPL">
+    </INPUT-FORMAT>
+    <PEERS>
+        <P ID="A">90_Napoleon-wiki.txt</P>
+    </PEERS>
+    <MODELS>
+        <M ID="0">90_Napoleon-wiki.txt</M>
+    </MODELS>
+</EVAL>
+<EVAL ID="15">
+    <MODEL-ROOT>Esercizio2_Summarization/automatic_summaries</MODEL-ROOT>
+    <PEER-ROOT>Esercizio2_Summarization/summaries</PEER-ROOT>
+    <INPUT-FORMAT TYPE="SPL">
+    </INPUT-FORMAT>
+    <PEERS>
+        <P ID="A">80_Life-indoors.txt</P>
+    </PEERS>
+    <MODELS>
+        <M ID="0">80_Life-indoors.txt</M>
+    </MODELS>
+</EVAL></ROUGE-EVAL>

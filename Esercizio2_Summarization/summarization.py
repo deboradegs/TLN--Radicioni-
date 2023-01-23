@@ -23,10 +23,10 @@ for rows in df_nasari.itertuples():
         dict_nasari[str(rows[2]).lower()].extend(list(rows[3:16]))
     else:
         dict_nasari[str(rows[2]).lower()]= list(rows[3:16])
-    
 lemmatizer = WordNetLemmatizer()
 stop_words = stopwords.words('english')
 string_punctuation = string.punctuation + '``'+'\'\'' + '’' + '“'+ '”'+'‘' 
+
 
 def stem_lem(text):
     words = list()
@@ -60,7 +60,6 @@ def extract_context(doc):
     for n in nasaris:
         n = str(n).split('_')[0]
         context.append(n)
-        
     return context        
     
 
@@ -111,20 +110,11 @@ def rerank_paragraphs(context, doc):
             paragraph_wo['paragraph'] = paragraph
             paragraph_wo['rank_score'] = sum_overlap/len(list_words)
             ranked_paragraphs.append(paragraph_wo)
-            #paragraph_wo[doc.index(paragraph)] = sum_overlap/len(list_words)
-    #return sorted(paragraph_wo.items(), key=lambda x:x[1], reverse= True)
     return sorted(ranked_paragraphs, key=lambda x:x['rank_score'], reverse= True)
 
 
 def summarize(ranked_paragraphs, percentage, splitted_doc):
     summarization = ' '
-    #print(ranked_paragraphs)
-    #number_of_paragraphs = round(percentage/100*paragraph_len)
-    #final_paragraphs = ranked_paragraphs[:number_of_paragraphs]
-    #final_paragraphs = sorted(final_paragraphs)
-    #print(final_paragraphs)
-    #for tuple in final_paragraphs:
-    #    summarization = str(summarization) + " " + splitted_doc[tuple[0]]
 
     doc_num_words = len(str(splitted_doc[1:]).split(' '))
     doc_sum_num_words = (doc_num_words * percentage)/100
@@ -137,6 +127,7 @@ def summarize(ranked_paragraphs, percentage, splitted_doc):
     while num_write_words < doc_sum_num_words:
         index_new_paragraphs_list.append(ranked_paragraphs[index]['index'])
         num_write_words += len(str(ranked_paragraphs[index]['paragraph']).split(' '))
+        # verifico con quale paragrafo si avvicina di più alla percentuale
         save_num_write_words = num_write_words - len(str(ranked_paragraphs[index]['paragraph']).split(' '))
         index+=1
 
@@ -149,25 +140,28 @@ def summarize(ranked_paragraphs, percentage, splitted_doc):
         if ranked_paragraphs[i]['index'] in index_new_paragraphs_list:
             summarization = str(summarization) + " " + ranked_paragraphs[i]['paragraph']
 
-    print('numero parole testo originale')
-    print(doc_num_words)
-    print('numero parole che dovrebbe avere la summarization')
-    print(doc_sum_num_words)
-    print('numero parole che ha il testo riassunto')
-    print(len(str(summarization).split(' ')))
-    print()    
+    # print('numero parole testo originale')
+    # print(doc_num_words)
+    # print('numero parole che dovrebbe avere la summarization')
+    # print(doc_sum_num_words)
+    # print('numero parole che ha il testo riassunto')
+    # print(len(str(summarization).split(' ')))
+    # print()    
 
     return summarization
 
 documents = os.listdir('Esercizio2_Summarization/texts')
 scorer = rouge_scorer.RougeScorer(['rouge1', 'rougeL'], use_stemmer=True)
 
+sum_blue = 0
+sum_rouge = 0
+
 for doc in documents:
+    
     splitted_doc = read_and_split('Esercizio2_Summarization/texts/'+doc)
     paragraph_len = len(splitted_doc)
     context = extract_context(splitted_doc)
     par = rerank_paragraphs(context, splitted_doc)
-    print(doc)
     summary90 = summarize(par, 90, splitted_doc)
     summary80 = summarize(par, 80, splitted_doc)
     summary70 = summarize(par, 70, splitted_doc)
@@ -210,44 +204,61 @@ for doc in documents:
     text_file.close()
 
     blue_precision90 = len(set(nostro_sum90) & set(gold_sum90)) / len(set(nostro_sum90))
+    sum_blue+=blue_precision90
     rouge_recall90 = len(set(nostro_sum90) & set(gold_sum90)) / len(set(gold_sum90))
+    sum_rouge+=rouge_recall90
 
     blue_precision80 = len(set(nostro_sum80) & set(gold_sum80)) / len(set(nostro_sum80))
+    sum_blue+=blue_precision80
     rouge_recall80 = len(set(nostro_sum80) & set(gold_sum80)) / len(set(gold_sum80))
+    sum_rouge+=rouge_recall80
 
     blue_precision70 = len(set(nostro_sum70) & set(gold_sum70)) / len(set(nostro_sum70))
+    sum_blue+=blue_precision70
     rouge_recall70 = len(set(nostro_sum70) & set(gold_sum70)) / len(set(gold_sum70))
+    sum_rouge+=rouge_recall70
 
-    print('blu precision del 90')
+    print("Evaluation on the summary of document " + str(doc))
+    print()
+    print('BLUE precision of 10% compression')
     print(blue_precision90)
-    print('rouge recall del 90')
+    print('ROUGE recall of 10% compression')
     print(rouge_recall90)
     print()
-    print('blu precision del 80')
+    print('BLUE precision of 20% compression')
     print(blue_precision80)
-    print('rouge recall del 80')
+    print('ROUGE recall of 20% compression')
     print(rouge_recall80)
     print()
-    print('blu precision del 70')
+    print('BLUE precision of 30% compression')
     print(blue_precision70)
-    print('rouge recall del 70')
+    print('ROUGE recall of 30% compression')
     print(rouge_recall70)
     print()
     print()
     print()
 
 
-# scores = PerlRouge().evaluate_from_files('Esercizio2_Summarization/summaries', 'Esercizio2_Summarization/automatic_summaries')
+scores = PerlRouge().evaluate_from_files('Esercizio2_Summarization/summaries', 'Esercizio2_Summarization/automatic_summaries')
 
-# rouge_1 = scores['rouge-1']
-# rouge_2 = scores['rouge-2']
+rouge_1 = scores['rouge-1']
+rouge_2 = scores['rouge-2']
 
-# print('Rouge-1 scores')
-# print('Recall score: {}'.format(rouge_1['r']))
-# print('Precision score: {}'.format(rouge_1['p']))
-# print()
-# print('Rouge-2 scores')
-# print('Recall score: {}'.format(rouge_2['r']))
-# print('Precision score: {}'.format(rouge_2['p']))
+print('Average Evaluation on all documents')
+print()
+print('Average BLUE precision: ' + str(sum_blue/15))
+print()
+print('Average ROUGE recall: ' + str(sum_rouge/15))
+print()
+print()
+print('Using Rouge Metric library: ')
+print()
+print('Rouge-1 scores')
+print('Recall score: {}'.format(rouge_1['r']))
+print('Precision score: {}'.format(rouge_1['p']))
+print()
+print('Rouge-2 scores')
+print('Recall score: {}'.format(rouge_2['r']))
+print('Precision score: {}'.format(rouge_2['p']))
 
 
