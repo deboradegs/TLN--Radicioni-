@@ -5,7 +5,7 @@ import math
 
 depthMax = 20
 
-df = pd.read_csv("WordSim353/WordSim353.csv")
+df = pd.read_csv("Esercizio1_LeskSimilarity/WordSim353/WordSim353.csv")
 
 # def get_hyperonyms2(synset):
 #     hyperonyms=[]
