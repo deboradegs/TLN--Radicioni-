@@ -1,6 +1,7 @@
 import pandas as pd
 import re
 import numpy as np
+import sklearn.metrics
 
 dict_nasari = dict()
 dict_semVal = dict()
@@ -82,10 +83,26 @@ def calculate_cosine_sim():
 dicts_score_cosine = calculate_cosine_sim()[0]
 df_calculate_scores = calculate_cosine_sim()[1]
 
-print(df_calculate_scores)
-
 pearson_valutation = df_calculate_scores['Average_Score_Annotate'].corr(df_calculate_scores['Cosine_Sim'], method='pearson')
 spearman_valutation = df_calculate_scores['Average_Score_Annotate'].corr(df_calculate_scores['Cosine_Sim'], method='spearman')
 
 print(pearson_valutation)
 print(spearman_valutation)
+
+#print(dicts_score_cosine)
+# list1= [('bn:123456n','bn:124565n'),('bn:567888n','bn:000234n'),('bn:000111n', 'bn:111222n')]
+# list2 = [('bn:349445n', 'bn:124564n'), ('bn:123565n','bn:123665n'), ('bn:128565n','bn:163665n')]
+# df_prova= pd.DataFrame(list(zip(list1,list2)), columns = ['lista1','lista2'])
+
+# pearson_valutation_prova= df_prova['lista1'].corr(df_prova['lista2'], method='pearson')
+# spearman_valutation_prova = df_prova['lista1'].corr(df_prova['lista2'], method='spearman')
+# print('pearson_prova')
+# print(pearson_valutation_prova)
+
+df_damonte = pd.read_csv('Esercizio3/damonte_senses.csv', sep=',', header=None, names=['Term1', 'Term2', 'bn1','bn2'])
+df_degaetano = pd.read_csv('Esercizio3/deGaetano_senses.csv', sep=',', header=None, names=['Term1', 'Term2', 'bn1','bn2'])
+
+
+kappa_damonte_degaetano = sklearn.metrics.cohen_kappa_score(np.array(df_damonte['bn1']), np.array(df_degaetano['bn1']))
+print(kappa_damonte_degaetano)
+
