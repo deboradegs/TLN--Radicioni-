@@ -77,14 +77,12 @@ spearman_valutation = df_calculate_scores['Average_Score_Annotate'].corr(df_calc
 
 #Consegna 1:
 print()
+print('Consegna 1:')
 print("----------------------------------------------------------")
 print("Agreement between annotations")
 print("Pearson coefficient: ", str(pearson_agreement))
 print("Spearman coefficient: ", str(spearman_agreement))
-print("----------------------------------------------------------")
-
 print()
-
 print("----------------------------------------------------------")
 print("Correlation between human and machine")
 print("Pearson coefficient: ", str(pearson_valutation))
@@ -121,14 +119,11 @@ kappa_deGaetano_chierchiello = sklearn.metrics.cohen_kappa_score(np.reshape(eval
 
 #Consegna 2:
 print()
+print('Consegna 2:')
 print("----------------------------------------------------------")
 print("Agreement between annotations with Cohen similarity:")
 print("Cohen similarity: ", str((kappa_damonte_degaetano+kappa_damonte_chierchiello+kappa_deGaetano_chierchiello)/3))
-print("----------------------------------------------------------")
-
 print()
-
-
 print("----------------------------------------------------------")
 print("Accuracy for single word (Chierchiello): {}".format(evaluation(df_chierchiello)[0]))
 print("Accuracy for single word (Damonte): {}".format(evaluation(df_damonte)[0]))
