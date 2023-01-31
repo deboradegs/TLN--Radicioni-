@@ -64,7 +64,7 @@ def calculate_cosine_sim():
             average_scores = round((int(row[3])+int(row[4])+int(row[5]))/3, 3)
             list_annotate_score.append(average_scores)
             list_cosine_sim.append(max_cosine_total)
-            dict_for_accuracy[(row[1], row[2])] = [(max_babel1, max_babel2)]#, (df_chierchiello['bn1'][i], df_chierchiello['bn2'][i])]
+            dict_for_accuracy[(row[1], row[2])] = [(max_babel1, max_babel2)]
         #i+=1
     df = pd.DataFrame(list(zip(list_annotate_score,list_cosine_sim)), columns = ['Average_Score_Annotate','Cosine_Sim'])
     return df
