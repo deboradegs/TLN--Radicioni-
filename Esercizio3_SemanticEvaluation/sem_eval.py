@@ -7,12 +7,12 @@ dict_nasari = dict()
 dict_semVal = dict()
 
 def create_dicts():
-    doc_nasari = open('Esercizio3/utils/mini_NASARI.tsv', 'r')
+    doc_nasari = open('Esercizio3_SemanticEvaluation/utils/mini_NASARI.tsv', 'r')
     for line in doc_nasari:
         l = line.split("\t")
         babelnet_id = l[0].split("__")[0]
         dict_nasari[babelnet_id] = list(map(float, l[1:]))
-    doc_semVal = open('Esercizio3/utils/SemEval17_IT_senses2synsets.txt', 'r')
+    doc_semVal = open('Esercizio3_SemanticEvaluation/utils/SemEval17_IT_senses2synsets.txt', 'r')
     for line in doc_semVal:
         if line.startswith('#'):
             babel_list = list()
@@ -24,10 +24,10 @@ def create_dicts():
 
 create_dicts()
 
-df_scores = pd.read_csv('Esercizio3/words_from_Chierchiello.csv', sep=',', header=None)
-df_damonte = pd.read_csv('Esercizio3/damonte_senses.csv', sep=',', header=None)
-df_degaetano = pd.read_csv('Esercizio3/deGaetano_senses.csv', sep=',', header=None)
-df_chierchiello = pd.read_csv('Esercizio3/chierchiello_senses.csv', sep=',', header=None)
+df_scores = pd.read_csv('Esercizio3_SemanticEvaluation/annotations/words_from_Chierchiello.csv', sep=',', header=None)
+df_damonte = pd.read_csv('Esercizio3_SemanticEvaluation/annotations/damonte_senses.csv', sep=',', header=None, names=['Term1','Term2','Bn1','Bn2','Terms_in_Bn1','Terms_in_Bn2'])
+df_degaetano = pd.read_csv('Esercizio3_SemanticEvaluation/annotations/deGaetano_senses.csv', sep=',', header=None, names=['Term1','Term2','Bn1','Bn2','Terms_in_Bn1','Terms_in_Bn2'])
+df_chierchiello = pd.read_csv('Esercizio3_SemanticEvaluation/annotations/chierchiello_senses.csv', sep=',', header=None, names=['Term1','Term2','Bn1','Bn2','Terms_in_Bn1','Terms_in_Bn2'])
 
 pearson_agreement = (df_scores[2].corr(df_scores[3], method='pearson')+ \
             df_scores[2].corr(df_scores[4], method='pearson')+ \
@@ -95,26 +95,26 @@ def evaluation(person):
     count_match = 0
     count_couple_match = 0
     i=0
-    lista_babel = list()
+    lista_babelbn = list()
+    
     for tuple in dict_for_accuracy:
-        #dict_for_accuracy[tuple].append((person['bn1'][i], person['bn2'][i]))
-        if dict_for_accuracy[tuple][0] == (person[2][i], person[3][i]):
+        if dict_for_accuracy[tuple][0] == (person['Bn1'][i], person['Bn2'][i]):
             count_couple_match+=1
-        if dict_for_accuracy[tuple][0][0] == person[2][i]:
+        if dict_for_accuracy[tuple][0][0] == person['Bn1'][i]:
             count_match+=1
-        if dict_for_accuracy[tuple][0][1] == person[3][i]:
+        if dict_for_accuracy[tuple][0][1] == person['Bn2'][i]:
             count_match+=1
-        #dict_for_accuracy[tuple].remove((person['bn1'][i], person['bn2'][i]))
-        lista_babel.append((person[2][i], person[3][i]))
+        lista_babelbn.append(person['Bn1'][i])
+        lista_babelbn.append(person['Bn2'][i])
+        babel_array = np.array(lista_babelbn)
         i+=1
     evaluation_single_word = count_match/(len(dict_for_accuracy)*2)
     evaluation_couple_words = count_couple_match/len(dict_for_accuracy)
-    return evaluation_single_word, evaluation_couple_words, lista_babel
+    return evaluation_single_word, evaluation_couple_words, babel_array
     
-
-kappa_damonte_degaetano = sklearn.metrics.cohen_kappa_score(np.reshape(evaluation(df_damonte)[2], -1), np.reshape(evaluation(df_degaetano)[2], -1))
-kappa_damonte_chierchiello = sklearn.metrics.cohen_kappa_score(np.reshape(evaluation(df_damonte)[2], -1), np.reshape(evaluation(df_chierchiello)[2], -1))
-kappa_deGaetano_chierchiello = sklearn.metrics.cohen_kappa_score(np.reshape(evaluation(df_degaetano)[2], -1), np.reshape(evaluation(df_chierchiello)[2], -1))
+kappa_damonte_degaetano = sklearn.metrics.cohen_kappa_score(evaluation(df_damonte)[2], evaluation(df_degaetano)[2])
+kappa_damonte_chierchiello = sklearn.metrics.cohen_kappa_score(evaluation(df_damonte)[2], evaluation(df_chierchiello)[2])
+kappa_deGaetano_chierchiello = sklearn.metrics.cohen_kappa_score(evaluation(df_degaetano)[2], evaluation(df_chierchiello)[2])
 
 
 #Consegna 2:

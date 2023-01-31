@@ -140,14 +140,6 @@ def summarize(ranked_paragraphs, percentage, splitted_doc):
         if ranked_paragraphs[i]['index'] in index_new_paragraphs_list:
             summarization = str(summarization) + " " + ranked_paragraphs[i]['paragraph']
 
-    # print('numero parole testo originale')
-    # print(doc_num_words)
-    # print('numero parole che dovrebbe avere la summarization')
-    # print(doc_sum_num_words)
-    # print('numero parole che ha il testo riassunto')
-    # print(len(str(summarization).split(' ')))
-    # print()    
-
     return summarization
 
 documents = os.listdir('Esercizio2_Summarization/texts')

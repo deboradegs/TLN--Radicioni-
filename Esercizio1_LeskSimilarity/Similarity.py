@@ -7,11 +7,6 @@ depthMax = 20
 
 df = pd.read_csv("Esercizio1_LeskSimilarity/WordSim353/WordSim353.csv")
 
-# def get_hyperonyms2(synset):
-#     hyperonyms=[]
-#     for hyperonym in synset.hypernyms():
-#         hyperonyms.append(hyperonym)
-#     return hyperonyms
 
 def get_hyperonyms(synset_list):
     hyperonyms=[]
@@ -28,41 +23,17 @@ def get_depth(w):
         next_hyper = next_hyper.hypernyms()[0]
     return depth
 
-# def lcs2(syns1, syns2):
-#     hypers1 = [syns1]
-#     hypers2 = [syns2]
-#     intersection = list(set(hypers1) & set(hypers2))
-#     #print(intersection)
-#     supp_list1=[syns1]
-#     supp_list2=[syns2]
-#     while len(intersection)==0:
-#         for syn1 in supp_list1:
-#             supp_list1 = get_hyperonyms2(syn1)
-#             hypers1.extend(supp_list1)
-#         #print(hypers1)
-#         for syn2 in supp_list2:
-#             supp_list2= get_hyperonyms2(syn2)
-#             hypers2.extend(supp_list2)
-#         #print(hypers2)
-#         intersection = list(set(hypers1) & set(hypers2))
-#         if len(supp_list1)==0 and len(supp_list2) == 0 and len(intersection) == 0:
-#             break
-#     return intersection
-
 def lcs(syns1, syns2):
     hypers1 = [syns1]
     hypers2 = [syns2]
     intersection = list(set(hypers1) & set(hypers2))
-    #print(intersection)
     supp_list1=[syns1]
     supp_list2=[syns2]
     while len(intersection)==0:
         if len(supp_list1)>0:
             supp_list1 = get_hyperonyms(supp_list1)
-        #print(hypers1)
         if len(supp_list2)>0:
             supp_list2 = get_hyperonyms(supp_list2)
-        #print(hypers2)
         hypers1.extend(supp_list1)
         hypers2.extend(supp_list2)
         intersection = list(set(hypers1) & set(hypers2))
@@ -73,7 +44,6 @@ def lcs(syns1, syns2):
 
 #Wu & Palmer
 def wu_palmer_similarity(w1, w2):
-    #res = w1.lowest_common_hypernyms(w2)
     res = lcs(w1, w2)
     depth  = 0
     if len(res) != 0:
@@ -90,19 +60,6 @@ def wu_palmer_similarity(w1, w2):
     
     return similarity
 
-
-# def WuAndPalmer(w1, w2):
-#     syn1 = wordnet.synsets(w1)
-#     syn2 = wordnet.synsets(w2)
-#     max = 0
-#     sim = 0
-#     for syn in syn1:
-#         for sy in syn2:
-#             sim = Similarity(syn, sy)
-#             if sim>max:
-#                 max = sim
-#     return max
-    
 
 
 def get_length_lcs(s, lcs_s1_s2):
@@ -134,18 +91,6 @@ def leakcock_chodorow_similarity(w1, w2):
     return -math.log(len_wo_errors/((2*depthMax)+1))
 
 
-# def shorterst_path(w1,w2):
-#     syn1 = wordnet.synsets(w1)
-#     syn2 = wordnet.synsets(w2)
-#     max = 0
-#     sim = 0
-#     for syn in syn1:
-#         for sy in syn2:
-#             sim = shorterst_path_similarity(syn, sy)
-#             if sim>max:
-#                 max = sim
-#     return max
-
 
 def terms_similarity(method, w1, w2):
     syn1 = wordnet.synsets(w1)
@@ -159,8 +104,6 @@ def terms_similarity(method, w1, w2):
                 max = sim
     return max
 
-#print(WuAndPalmer(word1, word2))
-#print(shorterst_path(word1, word2))
 
 def correlation_calculus(method):
     lista = []
@@ -182,14 +125,12 @@ def correlation_calculus(method):
         pearson = df['Human (mean)'].corr(df['leakcock_chodorow_similarity'], method='pearson')
         spearman = df['Human (mean)'].corr(df['leakcock_chodorow_similarity'], method='spearman')
 
-    #series = pd.Series(list)
-    #pearson = df['Human (mean)'].corr(series, method='pearson')
-    #spearman = df['Human (mean)'].corr(series, method='spearman')
     return df, pearson, spearman
 
 print()    
 print("Wu & Palmer similarity results")
 print(correlation_calculus(wu_palmer_similarity)[0])
+print()
 print("Its Pearson correlation coefficient")
 print(correlation_calculus(wu_palmer_similarity)[1])
 print("Its Spearman's rank correlation coefficient")
@@ -198,6 +139,7 @@ print(correlation_calculus(wu_palmer_similarity)[2])
 print()
 print("Shortest Path similarity results")
 print(correlation_calculus(shortest_path_similarity)[0])
+print()
 print("Its Pearson correlation coefficient")
 print(correlation_calculus(shortest_path_similarity)[1])
 print("Its Spearman's rank correlation coefficient")
@@ -206,6 +148,7 @@ print(correlation_calculus(shortest_path_similarity)[2])
 print()
 print("Leakcock and Chodorow similarity results")
 print(correlation_calculus(leakcock_chodorow_similarity)[0])
+print()
 print("Its Pearson correlation coefficient")
 print(correlation_calculus(leakcock_chodorow_similarity)[1])
 print("Its Spearman's rank correlation coefficient")

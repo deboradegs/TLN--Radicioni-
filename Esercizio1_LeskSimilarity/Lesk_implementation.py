@@ -20,12 +20,7 @@ def stem_lem(text):
     return words
 
 def get_context(sentence):
-    #context = []
-    #pos ? -> il lemmatize si aspetta un pos_tag
     context = stem_lem(sentence)
-    # for w in sentence:
-    #     if w!=word:
-    #         context.append(w)
     return context
 
 def get_signature(syn):
@@ -36,7 +31,6 @@ def get_signature(syn):
     return signature
 
 def get_overlap(signature, context):
-    #signature = 0
     intersection = list(set(signature) & set(context))
     return len(intersection)
 
@@ -46,7 +40,6 @@ def lesk_algorithm(word, sentence):
     context = get_context(sentence) #tutte le parole di sentence
     for syn in wn.synsets(word):
         signature = get_signature(syn) #Esempi più glossario (descrizioni)
-        #print(signature)
         overlap = get_overlap(signature, context) #overlap tra il nostro contesto polisemico e la signature
         if overlap > max_overlap:
             max_overlap = overlap
