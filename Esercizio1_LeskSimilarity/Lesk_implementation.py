@@ -39,7 +39,7 @@ def lesk_algorithm(word, sentence):
     max_overlap = 0
     context = get_context(sentence) #tutte le parole di sentence
     for syn in wn.synsets(word):
-        signature = get_signature(syn) #Esempi più glossario (descrizioni)
+        signature = get_signature(syn) #Esempi più glossario (definizioni e descrizioni)
         overlap = get_overlap(signature, context) #overlap tra il nostro contesto polisemico e la signature
         if overlap > max_overlap:
             max_overlap = overlap
@@ -78,11 +78,9 @@ def funzione():
             noun=random.choice(nouns_sents)
             fifty_sents.append(clear(semcor_sents[i]))
             syns_dis_lesk = lesk_algorithm(noun.pos()[0][0], sen).lemmas()
-            count = 0
             for syn in syns_dis_lesk:
                 if(str(noun.label()) == str(syn)):
                     punteggio += 1
-                    count+=1
 
     return punteggio/len(fifty_sents)*100
 
