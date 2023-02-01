@@ -1,30 +1,30 @@
-#### TLN--ESERCITAZIONE LESK SIMILARITY-
+# TLN--ESERCITAZIONE LESK SIMILARITY-
 
-### Consegna 1
+## Consegna 1
 
 Abbiamo estratto le coppie di termini da analizzare dal file *WordSim353.csv* inserendole in un DataFrame.
 Per calcolare la similarity tra queste coppie con i 3 metodi, abbiamo dovuto ovviare al problema di avere dei termini invece che dei sensi, come richiesti dalle formule. Abbiamo quindi estrapolato i sensi per ogni termine da WordNet. Per ogni coppia di termini abbiamo preso tutte le combinazioni di sensi e abbiamo richiamato i metodi per calcolare le tre similarità. Per ognuna di queste abbiamo trovato la coppia di sensi con similarità massima e abbiamo restituito il valore di quest'ultima.
 Per farlo abbiamo creato i metodi sulla singola coppia di sensi e poi in *terms_similarity* abbiamo calcolato il massimo tra la similarità di tutte le combinazioni delle coppie di sensi per due parole.
 
 
-# Wu & Palmer
+### Wu & Palmer
 
 Per calcolare "depth(LCS)" abbiamo innanzitutto dovuto trovare il primo antenato comune. Per farlo abbiamo preso la lista del primo livello di iperonimi per entrambi i sensi e abbiamo verificato se ci fosse un'intersezione, in caso contrario significava che l'antenato comune non fosse a quel livello di iperonimia. Quindi abbiamo proceduto a ripetere la verifica sull'intersezione tra le liste di iperonimi estendendole con i livelli via via superiori fino a trovare un'intersezione. Per calcolare poi la profondità di questo antenato abbiamo calcolato la distanza tra il root degli iperonimi e l'iperonimo trovato, implementandolo in *get_depth(s)*, che poi abbiamo usato per trovare anche "depth(s1)" e "depth(s2)".
 
 
-# Shortest Path
+### Shortest Path
 
 Per calcolare "len(s1,s2)" abbiamo pensato che il cammino minimo tra i due sensi fosse quello che passa dal primo antenato in comune. Abbiamo quindi calcolato quest'ultimo con l'ausilio del metodo *lcs(s1,s2)* utilizzato anche per calcolare la similarità di Wu & Palmer. In assenza di un antenato comune abbiamo considerato la distanza come massima, quindi 2*depthMax, altrimenti, abbiamo restituito la somma tra la distanza tra s1 e l'antenato comune e la distanza tra s2 e l'antenato comune.
 
-# Leacock & Chodorow
+### Leacock & Chodorow
 
 Abbiamo utilizzato i metodi precedentemente descritti per implementare la formula di similarità.
 
-# Correlazioni di Spearman e Pearson
+### Correlazioni di Spearman e Pearson
 
 Abbiamo utilizzato il metodo *Pandas.DataFrame.corr(serie, method)* per calcolare entrambi le correlazioni, cambiando il parametro "method".
 
-# Risultati
+### Risultati
 
 ```
 Similarity results
@@ -72,11 +72,11 @@ Leeckock & Chodorow Spearman's rank correlation coefficient
 ```
 
 
-### Consegna 2
+## Consegna 2
 
-# Implementazione di Lesk 
+### Implementazione di Lesk 
 
 Abbiamo tradotto lo pseudo-codice di Lesk fornitoci, per costruire il contesto abbiamo pulito la frase, gli esempi e la definizione dalle stop words con *stem_lem(text)*.
 
-# Disambiguazione utilizzando Lesk
+### Disambiguazione utilizzando Lesk
 
