@@ -82,3 +82,45 @@ Abbiamo tradotto lo pseudo-codice di Lesk fornitoci, per costruire il contesto a
 
 Per prendere le 50 frasi da SemCor abbiamo creato una lista di 50 indici randomici da 0 al numero di frasi di SemCor. Abbiamo poi preso le frasi corrispondenti agli indici, le abbiamo pulite dalle stop words, dalla punteggiatura e dagli upper-case, dopodiché abbiamo preso solo il lemma delle parole della frase. Da questa lista di parole abbiamo preso solo quelle che avevano pos tag corrispondente a un sostantivo, ne abbiamo scelto quindi uno random dalla frase e abbiamo infine chiamato la funzione Lesk su quest'ultimo e la sua frase di origine (pulita come prima definito). 
 Per valutarne l'efficacia abbiamo confrontato il senso in output da Lesk con il senso annotato in SemCor per quel sostantivo, normalizzando poi sul numero di frasi prese che avevano almeno un sostantivo.
+
+### Risultati
+```
+Loading semcor sentences . . .
+Semcore sentences successfully loaded
+------------------------------------
+Accuratezza esecuzione numero 1
+33.33333333333333%
+------------------------------------
+Accuratezza esecuzione numero 2
+41.66666666666667%
+------------------------------------
+Accuratezza esecuzione numero 3
+48.0%
+------------------------------------
+Accuratezza esecuzione numero 4
+26.31578947368421%
+------------------------------------
+Accuratezza esecuzione numero 5
+75.0%
+------------------------------------
+Accuratezza esecuzione numero 6
+42.30769230769231%
+------------------------------------
+Accuratezza esecuzione numero 7
+47.05882352941176%
+------------------------------------
+Accuratezza esecuzione numero 8
+47.61904761904761%
+------------------------------------
+Accuratezza esecuzione numero 9
+53.84615384615385%
+------------------------------------
+Accuratezza esecuzione numero 10
+42.30769230769231%
+------------------------------------
+
+
+Accuratezza media dell'algoritmo su 10 esecuzioni del programma:
+
+45.74551990836821%
+```
