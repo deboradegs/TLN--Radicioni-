@@ -1,6 +1,6 @@
 # TLN--ESERCITAZIONE SUMMARIZATION-
 
-##Individuazione del topic e creazione del contesto
+## Individuazione del topic e creazione del contesto
 
 Abbiamo creato il topic del testo prendendo i vettori di Nasari delle parole presenti nel titolo, nel paragrafo introduttivo e in quello conclusivo.
 
@@ -11,7 +11,7 @@ per permetterci di riordinarli per rilevanza.
 Per ogni parola del paragrafo abbiamo contato solo l'overlap con la parola del contesto che avesse massimo valore. 
 Per trovare la rilevanza del paragrafo abbiamo sommato tutti gli overlap così trovati per le sue parole.
 
-##Summarization
+## Summarization
 
 Partendo dall'elenco di paragrafi riordinati per rilevanza abbiamo riscritto il testo prendendo il numero di paragrafi tale per cui il numero di parole del riassunto
 si avvicinasse maggiormente al numero di parole del testo compresso della percentuale richiesta.
