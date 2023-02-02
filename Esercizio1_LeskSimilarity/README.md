@@ -80,3 +80,5 @@ Abbiamo tradotto lo pseudo-codice di Lesk fornitoci, per costruire il contesto a
 
 ### Disambiguazione utilizzando Lesk
 
+Per prendere le 50 frasi da SemCor abbiamo creato una lista di 50 indici randomici da 0 al numero di frasi di SemCor. Abbiamo poi preso le frasi corrispondenti agli indici, le abbiamo pulite dalle stop words, dalla punteggiatura e dagli upper-case, dopodiché abbiamo preso solo il lemma delle parole della frase. Da questa lista di parole abbiamo preso solo quelle che avevano pos tag corrispondente a un sostantivo, ne abbiamo scelto quindi uno random dalla frase e abbiamo infine chiamato la funzione Lesk su quest'ultimo e la sua frase di origine (pulita come prima definito). 
+Per valutarne l'efficacia abbiamo confrontato il senso in output da Lesk con il senso annotato in SemCor per quel sostantivo, normalizzando poi sul numero di frasi prese che avevano almeno un sostantivo.
