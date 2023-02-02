@@ -4,7 +4,7 @@
 
 Abbiamo creato il topic del testo prendendo i vettori di Nasari delle parole presenti nel titolo, nel paragrafo introduttivo e in quello conclusivo.
 
-##Individuazione e riordinamento dei paragrafi contenenti i termini più rilevanti
+## Individuazione e riordinamento dei paragrafi contenenti i termini più rilevanti
 
 Per ogni parola di ogni paragrafo abbiamo calcolato la weighted overlap rispetto al contesto, trovando così i paragrafi con maggiore overlap col contesto, 
 per permetterci di riordinarli per rilevanza. 
