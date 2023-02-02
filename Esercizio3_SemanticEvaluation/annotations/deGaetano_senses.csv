@@ -9,27 +9,27 @@ pipistrello,vampiro,bn:00008977n,bn:00049788n,Chiroptera  chirotteri  chirottero
 deputato,dirigente,bn:00047203n,bn:04707974n,portavoce  esponente incaricato  interprete,presidente dirigente sportivo  dirigenza
 elettricità,cassa,bn:00030181n,bn:00018016n,energia elettrica luce,bancone
 forestiero,straniero,bn:00002725n,bn:00002725n,straniero  foresto cittadino straniero immigrati clandestini,forestiero  foresto cittadino straniero immigrati clandestini
-bottone,macchina da cucire,bn:00014305n,bn:00070769n,chiusura accessorio,
-mago,cavo,bn:03327016n,bn:22255997n
-filosofo,corsa,bn:00061979n,bn:00065828n
-popcorn,cinema,bn:00063566n,bn:00019129n
-agricoltura,pianta,bn:00002096n,bn:00035324n
-poeta,giornalista,bn:00063196n,bn:00048461n
-tempo,onda,bn:00006808n,bn:00056171n
-civiltà,stile di vita,bn:00019383n,bn:00051057n
-neve,ghiaccio,bn:00072455n,bn:00045705n
-Seconda Guerra Mondiale,Beethoven,bn:00070139n,bn:00009608n
-scheda madre,scheda madre,bn:00023437n,bn:00023437n
-circolo,marchio,bn:00899174n,bn:14647954n
-Alessandro Magno,conquistatore,bn:00002612n,bn:00021939n
-app,galassia,bn:00005095n,bn:00032476n
-cloud computing,pioggia,bn:01225375n,bn:00066032n
-televisione,attore,bn:00012048n,bn:00001176n
-delta,mare,bn:00026081n,bn:00069946n
-filato,filo,bn:00077028n,bn:00077028n
-attraversamento pedonale,persona,bn:00061238n,bn:00044576n
-proteina,maniglia,bn:00064855n,bn:00028256n
-U2,Ronaldo,bn:03320432n,bn:03464322n
+bottone,macchina da cucire,bn:00014305n,bn:00070769n,chiusura accessorio,macchina per cucire  macchine da cucire  cucitrice macchina cucitrice
+mago,cavo,bn:03327016n,bn:22255997n,occultista,cavo elettrico Cavi  Cavi di telecomunicazione cavi elettrici
+filosofo,corsa,bn:00061979n,bn:00065828n,filosofi Pensatore,gara di velocità  da corsa
+popcorn,cinema,bn:00063566n,bn:00019129n,pop-corn pop corn  mais scoppiato,sala cinematografica cinematografo cineschermo
+agricoltura,pianta,bn:00002096n,bn:00035324n,agraria  Rivoluzione agricola  agricultura coltivazione,flora  vegetale  piante  organismo vegetale
+poeta,giornalista,bn:00063196n,bn:00048461n,poetessa  cantore musa  rimatore,reporter articolista giornalista televisivo  giornalisti
+tempo,onda,bn:00006808n,bn:00056171n,meteo  tempo atmosferico tempo meteorologico condizione atmosferica,onda marina  onda del mare flutto  Onde del mare
+civiltà,stile di vita,bn:00019383n,bn:00051057n,cultura,vita  modus vivendi
+neve,ghiaccio,bn:00072455n,bn:00045705n,nevicata  caduta di neve  precipitazioni nevose Fondi nevosi,Ghiacci  Ghiacciato  Ghiaccio d'acqua  Ghiaccio IV
+Seconda Guerra Mondiale,Beethoven,bn:00070139n,bn:00009608n,2ª Guerra Mondiale  II Conflitto Mondiale II guerra mondiale,Ludwig van Beethoven ludvig van beethoven  ludwig von beethoven  van beethoven
+scheda madre,scheda madre,bn:00023437n,bn:00023437n,motherboard mainboard schede madri  madre,motherboard mainboard schede madri  madre
+circolo,marchio,bn:00899174n,bn:14647954n,club,Diritto di marchio Marchi di origine marchio collettivo  marchio commerciale
+Alessandro Magno,conquistatore,bn:00002612n,bn:00021939n,Alessandro Alessandro il Grande  Alessandro di Macedonia Alessandro III,vanquisher trionfatore
+app,galassia,bn:00005095n,bn:00032476n,applicazione programma applicativo software applicativo  applicativo applicazione software,nebulosa  galassie  rotazione galattica nebulosa extragalattica
+cloud computing,pioggia,bn:01225375n,bn:00066032n,servizi cloud elaborazione cloud  nuvola informatica  Utility computing,acqua acqua piovana acque piovane altezza pluviometrica
+televisione,attore,bn:00012048n,bn:00001176n,televisore tv  tele  teleschermo,attrice istrione  interprete  attori
+delta,mare,bn:00026081n,bn:00069946n,delta fluviale foce a delta  Delta fluviali  delta del fiume,acque mare interno
+filato,filo,bn:00077028n,bn:00077028n,filo  refe  cucirino  filo di cotone filato,filato  refe  cucirino  filo di cotone filato
+attraversamento pedonale,persona,bn:00061238n,bn:00044576n,strisce pedonali passaggio pedonale  attraversamento zebrato strisce,uomo  essere umano  Homo  umano Homo sapiens sapiens
+proteina,maniglia,bn:00064855n,bn:00028256n,proteine  protide isoforme  proteica,pomello  maniglia della porta
+U2,Ronaldo,bn:03320432n,bn:03464322n,Passengers U-2,Cristiano Ronaldo CR7 Cristiano Ronaldo dos Santos Aveiro
 Apple,iPhone,bn:03739345n,bn:03773392n
 menta piperita,gomma,bn:00054382n,bn:00013545n
 poster,carta,bn:00010421n,bn:00060464n
