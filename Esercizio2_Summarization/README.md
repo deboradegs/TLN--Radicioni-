@@ -23,47 +23,116 @@ Per calcolare precision e recall del summarizer in generale abbiamo prima fatto 
 la classe PerlRouge di rouge_metric, calcolando lo score sia sul confronto di singole parole che di coppie di parole.
 
 ```
-Similarity results
-           Word 1    Word 2  Human (mean)  wu_palmer_similarity  shortest_path_similarity  leakcock_chodorow_similarity
-0            love       sex          6.77              0.909091                        39                      3.020425
-1           tiger       cat          7.35              0.962963                        39                      3.020425
-2           tiger     tiger         10.00              1.000000                        40                      3.713572
-3            book     paper          7.46              0.857143                        38                      2.614960
-4        computer  keyboard          7.62              0.800000                        37                      2.327278
-..            ...       ...           ...                   ...                       ...                           ...
-348        shower     flood          6.03              0.533333                        36                      2.104134
-349       weather  forecast          8.34              0.000000                        27                      1.074515
-350      disaster      area          6.25              0.428571                        32                      1.516347
-351      governor    office          6.34              0.470588                        31                      1.410987
-352  architecture   century          3.78              0.181818                        31                      1.410987
+Evaluation on the summary of document Life-indoors.txt
 
-[353 rows x 6 columns]
+BLUE precision of 10% compression
+0.9587155963302753
+ROUGE recall of 10% compression
+0.9330357142857143
 
+BLUE precision of 20% compression
+0.851063829787234
+ROUGE recall of 20% compression
+0.8080808080808081
 
-Wu & Palmer Pearson correlation coefficient
---------------------------------------------------------
-0.26705872312041734
-
-Wu & Palmer Spearman's rank correlation coefficient
---------------------------------------------------------
-0.3071210105989976
+BLUE precision of 30% compression
+0.8085106382978723
+ROUGE recall of 30% compression
+0.8685714285714285
 
 
-Shortest Path Pearson correlation coefficient
---------------------------------------------------------
-0.06668933450180664
 
-Shortest Path Spearman's rank correlation coefficient
---------------------------------------------------------
-0.2707195125455104
+Evaluation on the summary of document Ebola-virus-disease.txt
+
+BLUE precision of 10% compression
+0.9753954305799648
+ROUGE recall of 10% compression
+0.8781645569620253
+
+BLUE precision of 20% compression
+0.7936210131332082
+ROUGE recall of 20% compression
+0.789179104477612
+
+BLUE precision of 30% compression
+0.6923076923076923
+ROUGE recall of 30% compression
+0.7801268498942917
 
 
-Leeckock & Chodorow Pearson correlation coefficient
---------------------------------------------------------
-0.27191049386567595
 
-Leeckock & Chodorow Spearman's rank correlation coefficient
---------------------------------------------------------
-0.2707195125455104
+Evaluation on the summary of document Trump-wall.txt
+
+BLUE precision of 10% compression
+0.7173678532901834
+ROUGE recall of 10% compression
+0.9059945504087193
+
+BLUE precision of 20% compression
+0.6461716937354989
+ROUGE recall of 20% compression
+0.889776357827476
+
+BLUE precision of 30% compression
+0.5765661252900232
+ROUGE recall of 30% compression
+0.8922800718132855
+
+
+
+Evaluation on the summary of document Andy-Warhol.txt
+
+BLUE precision of 10% compression
+0.9009009009009009
+ROUGE recall of 10% compression
+0.9237875288683602
+
+BLUE precision of 20% compression
+0.7487684729064039
+ROUGE recall of 20% compression
+0.8539325842696629
+
+BLUE precision of 30% compression
+0.6896551724137931
+ROUGE recall of 30% compression
+0.8433734939759037
+
+
+
+Evaluation on the summary of document Napoleon-wiki.txt
+
+BLUE precision of 10% compression
+0.9944903581267218
+ROUGE recall of 10% compression
+0.9328165374677002
+
+BLUE precision of 20% compression
+0.7654320987654321
+ROUGE recall of 20% compression
+0.835016835016835
+
+BLUE precision of 30% compression
+0.7006172839506173
+ROUGE recall of 30% compression
+0.8438661710037175
+
+
+
+Average Evaluation on all documents
+
+Average BLUE precision: 0.7879722773210549
+
+Average ROUGE recall: 0.8652001728615694
+
+
+Using Rouge Metric library: 
+
+Rouge-1 scores
+Recall score: 0.87839
+Precision score: 0.80557
+
+Rouge-2 scores
+Recall score: 0.81142
+Precision score: 0.7472
 ```
 
