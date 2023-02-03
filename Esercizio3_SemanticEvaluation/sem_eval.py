@@ -41,7 +41,6 @@ dict_for_accuracy = dict()
 def calculate_cosine_sim():
     list_annotate_score = list()
     list_cosine_sim = list()
-    #i=0
     for row in df_scores.itertuples():
         max_cosine_total = 0
         if row[1] in dict_semVal.keys() and row[2] in dict_semVal.keys():
@@ -65,7 +64,6 @@ def calculate_cosine_sim():
             list_annotate_score.append(average_scores)
             list_cosine_sim.append(max_cosine_total)
             dict_for_accuracy[(row[1], row[2])] = [(max_babel1, max_babel2)]
-        #i+=1
     df = pd.DataFrame(list(zip(list_annotate_score,list_cosine_sim)), columns = ['Average_Score_Annotate','Cosine_Sim'])
     return df
 
