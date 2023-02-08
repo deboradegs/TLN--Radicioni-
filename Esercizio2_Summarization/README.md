@@ -6,21 +6,18 @@ Abbiamo creato il topic del testo prendendo i vettori di Nasari delle parole pre
 
 ## Individuazione e riordinamento dei paragrafi contenenti i termini più rilevanti
 
-Per ogni parola di ogni paragrafo abbiamo calcolato la weighted overlap rispetto al contesto, trovando così i paragrafi con maggiore overlap col contesto, 
-per permetterci di riordinarli per rilevanza. 
+Per ogni parola di ogni paragrafo abbiamo calcolato la weighted overlap rispetto al contesto, trovando così i paragrafi con maggiore overlap col contesto, per permetterci di riordinarli per rilevanza. 
 Per ogni parola del paragrafo abbiamo contato solo l'overlap con la parola del contesto che avesse massimo valore. 
 Per trovare la rilevanza del paragrafo abbiamo sommato tutti gli overlap così trovati per le sue parole.
 
 ## Summarization
 
-Partendo dall'elenco di paragrafi riordinati per rilevanza abbiamo riscritto il testo prendendo il numero di paragrafi tale per cui il numero di parole del riassunto
-si avvicinasse maggiormente al numero di parole del testo compresso della percentuale richiesta.
+Partendo dall'elenco di paragrafi riordinati per rilevanza abbiamo riscritto il testo prendendo il numero di paragrafi tale per cui il numero di parole del riassunto si avvicinasse maggiormente al numero di parole del testo compresso della percentuale richiesta.
 
 ## Risultati
 
 Abbiamo calcolato la BLUE precision e la ROUGE recall per ogni documento riassunto implementando le formule e usando come golden summary i riassunti ottenuti da https://resoomer.com/en.
-Per calcolare precision e recall del summarizer in generale abbiamo prima fatto la media delle precision e delle recall prima trovate e poi, come confronto, abbiamo utilizzato
-la classe PerlRouge di rouge_metric, calcolando lo score sia sul confronto di singole parole che di coppie di parole.
+Per calcolare precision e recall del summarizer in generale abbiamo prima fatto la media delle precision e delle recall prima trovate e poi, come confronto, abbiamo utilizzato la classe PerlRouge di rouge_metric, calcolando lo score sia sul confronto di singole parole che di coppie di parole.
 
 ```
 Evaluation on the summary of document Life-indoors.txt

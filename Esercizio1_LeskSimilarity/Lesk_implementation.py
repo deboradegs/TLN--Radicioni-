@@ -64,7 +64,7 @@ def clear(lista):
     return cleaned_list
 
 def funzione():
-    random_list = random.sample(range(semcor_sents_length), 50)
+    random_list = random.sample(range(semcor_sents_length), 50) #lista di 50 indici
     fifty_sents = []
     sen = str
     punteggio = 0
@@ -75,7 +75,7 @@ def funzione():
             if 'Lemma' in str(tree.label()) and ('NN' == str(tree.pos()[0][1]) or  str(tree.pos()[0][1]) == 'NNS') and len(wn.synsets(tree.pos()[0][0]))>0 :
                 nouns_sents.append(tree)
         if len(nouns_sents)>0:
-            noun=random.choice(nouns_sents)
+            noun=random.choice(nouns_sents) #prendo un termine random
             fifty_sents.append(clear(semcor_sents[i]))
             syns_dis_lesk = lesk_algorithm(noun.pos()[0][0], sen).lemmas()
             for syn in syns_dis_lesk:

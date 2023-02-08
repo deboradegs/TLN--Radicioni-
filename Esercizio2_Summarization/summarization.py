@@ -150,7 +150,7 @@ sum_rouge = 0
 
 for doc in documents:
     
-    splitted_doc = read_and_split('Esercizio2_Summarization/texts/'+doc)
+    splitted_doc = read_and_split('Esercizio2_Summarization/texts/'+doc) #lista di paragrafi
     paragraph_len = len(splitted_doc)
     context = extract_context(splitted_doc)
     par = rerank_paragraphs(context, splitted_doc)
